@@ -17,6 +17,8 @@
 }
 
 body {
+  margin-top:-15px;
+  padding-top: 4rem;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
