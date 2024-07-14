@@ -9,23 +9,23 @@ const Page = () => {
   interface Todos {
     todo: String;
     priority: String;
-    done: Boolean;
+    isDone: Boolean;
   }
   const [todos, setTodos] = useState<Todos[]>([
     {
       todo: "Sleep",
       priority: "medium",
-      done: false,
+      isDone: false,
     },
     {
       todo: "Eat",
       priority: "high",
-      done: false,
+      isDone: false,
     },
     {
       todo: "Code",
       priority: "low",
-      done: true,
+      isDone: true,
     },
   ]);
   const [input, setInput] = useState("");
@@ -40,7 +40,7 @@ const Page = () => {
           {
             todo: input,
             priority: priority,
-            done: false,
+            isDone: false,
           },
         ]);
       } else {
@@ -52,10 +52,10 @@ const Page = () => {
     }
   }
 
-  function doneButtonHandler(item: any, index: any) {
+  function isDoneButtonHandler(item: any, index: any) {
     setTodos((prevTodos) =>
       prevTodos.map((todo, i) =>
-        i === index ? { ...todo, done: !todo.done } : todo
+        i === index ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
   }
@@ -97,8 +97,8 @@ const Page = () => {
           onChange={setPriority}
         />
       </div>
-      <Todos todos={todos} deleteTodo={removeTodo} done={doneButtonHandler} />
-          <Chatbot/>
+      <Todos todos={todos} deleteTodo={removeTodo} isDone={isDoneButtonHandler} />
+      <Chatbot />
     </div>
   );
 };
