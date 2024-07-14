@@ -6,7 +6,6 @@ connect();
 export async function GET() {
     try {
         const response = await Todo.find();
-        console.log("Response while getting data from DB : ", response);
         
         return NextResponse.json({
             data: response,

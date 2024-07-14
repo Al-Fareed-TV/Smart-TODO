@@ -61,7 +61,6 @@ const Page = () => {
 
     async function getTodo() {
       const tempTodo = await axios.get('./api/todos/getTodo')
-      console.log("Response from backend : ", tempTodo);
       setTodos(tempTodo.data.data)
     }
     getTodo();
@@ -71,7 +70,8 @@ const Page = () => {
     { label: "Medium", value: "medium", color: "#b9b941" },
     { label: "Low", value: "low", color: "#3db13d" },
   ];
-  const removeTodo = (todoItem: any) => {
+  const removeTodo = async(todoItem: any) => {
+    await axios.delete("./api/todos/removeTodo", { data: { todo: todoItem } });
     const temp = todos.filter((item) => item.todo !== todoItem);
     setTodos(temp);
   };
