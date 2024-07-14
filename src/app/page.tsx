@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import Input from "./components/input";
-import Button from "./components/button";
-import RadioGroup from "./components/RadioGroup";
+import Input from "./components/ui/input";
+import Button from "./components/ui/button";
+import RadioGroup from "./components/ui/RadioGroup";
 import Todos from "./components/todos";
-
+import Chatbot from "./components/bot/chatbot";
 const Page = () => {
   interface Todos {
     todo: String;
@@ -51,16 +51,15 @@ const Page = () => {
       alert("Cannot add empty todo..!");
     }
   }
-  
-    
-   function doneButtonHandler(item: any, index: any) {
-     setTodos((prevTodos) =>
-       prevTodos.map((todo, i) =>
-         i === index ? { ...todo, done: !todo.done } : todo
-       )
-     );
-   }
-  
+
+  function doneButtonHandler(item: any, index: any) {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo, i) =>
+        i === index ? { ...todo, done: !todo.done } : todo
+      )
+    );
+  }
+
   const radioOptions = [
     { label: "High", value: "high", color: "#d26565" },
     { label: "Medium", value: "medium", color: "#b9b941" },
@@ -99,6 +98,7 @@ const Page = () => {
         />
       </div>
       <Todos todos={todos} deleteTodo={removeTodo} done={doneButtonHandler} />
+          <Chatbot/>
     </div>
   );
 };

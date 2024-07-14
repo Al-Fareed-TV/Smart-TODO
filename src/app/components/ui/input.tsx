@@ -1,6 +1,6 @@
 import React from "react";
 
-const input = (props: any) => {
+const Input = (props: any) => {
   const { className, placeholder, value, setText, ...rest } = props;
   return (
     <input
@@ -13,4 +13,4 @@ const input = (props: any) => {
   );
 };
 
-export default input;
+export default Input;
