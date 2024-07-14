@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./components/ui/input";
 import Button from "./components/ui/button";
 import RadioGroup from "./components/ui/RadioGroup";
@@ -19,7 +19,7 @@ const Page = () => {
   async function addTodo() {
     try {
       if (input.trim() !== "") {
-        const todoExist = todos.some((item) => item.todo === input);
+        const todoExist = todos.some((item) => item.todo.toLowerCase() === input.toLowerCase());
         if (!todoExist) {
           setTodos([
             ...todos,
@@ -56,7 +56,16 @@ const Page = () => {
       )
     );
   }
+  useEffect(() => {
+    document.title = "Smart Todo"
 
+    async function getTodo() {
+      const tempTodo = await axios.get('./api/todos/getTodo')
+      console.log("Response from backend : ", tempTodo);
+      setTodos(tempTodo.data.data)
+    }
+    getTodo();
+  },[])
   const radioOptions = [
     { label: "High", value: "high", color: "#d26565" },
     { label: "Medium", value: "medium", color: "#b9b941" },
@@ -69,6 +78,7 @@ const Page = () => {
 
   return (
     <div>
+      
       <div className="flex w-screen justify-center align-middle mt-3.5">
         <Input
           className="text-black rounded p-1 pl-2 h-fit"
