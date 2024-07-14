@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "./button";
+import Button from "./ui/button";
 
 const todos = (props: any) => {
-  const { todos, setTodos, done, deleteTodo } = props;
+  const { todos, setTodos, isDone, deleteTodo } = props;
   return (
     <div className="flex text-white rounded w-screen justify-center h-screen overflow-scroll mt-3">
       <ul className="flex flex-col items-center ">
@@ -10,7 +10,7 @@ const todos = (props: any) => {
           <li
             style={{
               backgroundColor: `${
-                item.done ? "#60b06073" : "rgb(250 252 255 / 21%)"
+                item.isDone ? "" : "rgb(250 252 255 / 21%)"
               }`,
               border: "1px solid grey",
             }}
@@ -21,7 +21,7 @@ const todos = (props: any) => {
               <span
                 style={{
                   overflow: "scroll",
-                  textDecoration: `${item.done ? "line-through" : "none"}`,
+                  textDecoration: `${item.isDone ? "line-through" : "none"}`,
                 }}
               >
                 {item.todo}
@@ -39,7 +39,7 @@ const todos = (props: any) => {
               </Button>
 
               <Button
-                onClick={() => done(item, index)}
+                onClick={() => isDone(item, index)}
                 className=" text-yellow-300 border border-yellow-300 border-solid p-1 m-1 rounded"
               >
                 {item.done ? "Not Done" : "Done"}
