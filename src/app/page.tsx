@@ -5,50 +5,47 @@ import Button from "./components/ui/button";
 import RadioGroup from "./components/ui/RadioGroup";
 import Todos from "./components/todos";
 import Chatbot from "./components/bot/chatbot";
+import axios from "axios";
 const Page = () => {
   interface Todos {
     todo: String;
     priority: String;
     isDone: Boolean;
   }
-  const [todos, setTodos] = useState<Todos[]>([
-    {
-      todo: "Sleep",
-      priority: "medium",
-      isDone: false,
-    },
-    {
-      todo: "Eat",
-      priority: "high",
-      isDone: false,
-    },
-    {
-      todo: "Code",
-      priority: "low",
-      isDone: true,
-    },
-  ]);
+  const [todos, setTodos] = useState<Todos[]>([]);
   const [input, setInput] = useState("");
   const [priority, setPriority] = useState("low");
 
-  function addTodo() {
-    if (input.trim() !== "") {
-      const todoExist = todos.some((item) => item.todo === input);
-      if (!todoExist) {
-        setTodos([
-          ...todos,
-          {
+  async function addTodo() {
+    try {
+      if (input.trim() !== "") {
+        const todoExist = todos.some((item) => item.todo === input);
+        if (!todoExist) {
+          setTodos([
+            ...todos,
+            {
+              todo: input,
+              priority: priority,
+              isDone: false,
+            },
+          ]);
+          const response = await axios.post("./api/todos/addTodo", {
             todo: input,
             priority: priority,
             isDone: false,
-          },
-        ]);
+          });
+          console.log(response);
+        } else {
+          alert("Todo exist..!");
+        }
+        setInput("");
       } else {
-        alert("Todo exist..!");
+        alert("Cannot add empty todo..!");
       }
+    } catch (error: any) {
+      console.log("Add todo error : ", error.message);
+    } finally {
       setInput("");
-    } else {
-      alert("Cannot add empty todo..!");
     }
   }
 
@@ -97,7 +94,11 @@ const Page = () => {
           onChange={setPriority}
         />
       </div>
-      <Todos todos={todos} deleteTodo={removeTodo} isDone={isDoneButtonHandler} />
+      <Todos
+        todos={todos}
+        deleteTodo={removeTodo}
+        isDone={isDoneButtonHandler}
+      />
       <Chatbot />
     </div>
   );
