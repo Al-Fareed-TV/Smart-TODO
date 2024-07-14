@@ -10,7 +10,7 @@ const todos = (props: any) => {
           <li
             style={{
               backgroundColor: `${
-                item.done ? "#60b06073" : "rgb(250 252 255 / 21%)"
+                item.isDone ? "" : "rgb(250 252 255 / 21%)"
               }`,
               border: "1px solid grey",
             }}

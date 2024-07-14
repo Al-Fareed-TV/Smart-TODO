@@ -49,13 +49,22 @@ const Page = () => {
     }
   }
 
-  function isDoneButtonHandler(item: any, index: any) {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo, i) =>
-        i === index ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
+  async function isDoneButtonHandler(item: any, index: any) {
+    try {
+      await axios.patch("/api/todos/updateTodo", {
+        todo: item.todo,
+        isDone: !item.isDone,
+      });
+      setTodos((prevTodos) =>
+        prevTodos.map((todo, i) =>
+          i === index ? { ...todo, isDone: !todo.isDone } : todo
+        )
+      );
+    } catch (error: any) {
+      console.log("Update todo error: ", error.message);
+    }
   }
+
   useEffect(() => {
     document.title = "Smart Todo"
 
