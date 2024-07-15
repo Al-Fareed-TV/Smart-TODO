@@ -118,7 +118,7 @@ const Page = () => {
         deleteTodo={removeTodo}
         isDone={isDoneButtonHandler}
       />
-      <Chatbot />
+      <Chatbot todos={todos} />
     </div>
   );
 };
