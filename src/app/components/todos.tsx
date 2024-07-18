@@ -42,7 +42,7 @@ const todos = (props: any) => {
                 onClick={() => isDone(item, index)}
                 className=" text-yellow-300 border border-yellow-300 border-solid p-1 m-1 rounded"
               >
-                {item.done ? "Not Done" : "Done"}
+                {item.isDone ? "Not Done" : "Done"}
               </Button>
             </div>
           </li>

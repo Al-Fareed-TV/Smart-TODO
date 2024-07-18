@@ -7,7 +7,9 @@ import Todos from "./components/todos";
 import Chatbot from "./components/bot/chatbot";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 const Page = () => {
+  const router = useRouter();
   interface Todos {
     todo: String;
     priority: String;
@@ -148,10 +150,27 @@ const Page = () => {
   setTodos(temp);
 };
 
+  async function logout() {
+   
+    const token = Cookies.get("token")
+    const header = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.get("http://localhost:8000/user/logout", header);
+    
+    Cookies.remove("token");
+    Cookies.remove("user_id");
+    router.push('/user/login')
+  }
 
   return (
     <div>
-      
+      <Button
+        onClick={logout}
+        className=" fixed top-6 right-10 bg-white text-black p-1 rounded"
+      >Log out</Button>
       <div className="flex w-screen justify-center align-middle mt-3.5">
         <Input
           className="text-black rounded p-1 pl-2 h-fit"
