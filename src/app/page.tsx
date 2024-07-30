@@ -46,7 +46,7 @@ const Page = () => {
 
           // const response = await axios.post("./api/todos/addTodo", {
           const response = await axios.post(
-            "http://localhost:8000/todo/new",
+            "https://smart-todo-be.onrender.com/todo/new",
             {
               userId: userId,
               todo: input,
@@ -55,7 +55,6 @@ const Page = () => {
             },
             config
           );
-
         } else {
           alert("Todo exist..!");
         }
@@ -79,10 +78,14 @@ const Page = () => {
         },
       };
       // await axios.patch("/api/todos/updateTodo", {
-      await axios.patch("http://localhost:8000/todo/update", {
-        todo: item.todo,
-        isDone: !item.isDone,
-      },config);
+      await axios.patch(
+        "https://smart-todo-be.onrender.com/todo/update",
+        {
+          todo: item.todo,
+          isDone: !item.isDone,
+        },
+        config
+      );
       setTodos((prevTodos) =>
         prevTodos.map((todo, i) =>
           i === index ? { ...todo, isDone: !todo.isDone } : todo
@@ -117,11 +120,11 @@ const Page = () => {
         // const tempTodo = await axios.get('./api/todos/getTodo')
         const tempTodo = await axios.request({
           method: "post",
-          url: "http://localhost:8000/todo/list",
+          url: "https://smart-todo-be.onrender.com/todo/list",
           ...config,
         });
-        console.log("Todo from be",tempTodo);
-        
+        console.log("Todo from be", tempTodo);
+
         setTodos(tempTodo.data.data);
       } catch (error) {
         console.error("Error fetching todos:", error);
@@ -135,34 +138,36 @@ const Page = () => {
     { label: "Medium", value: "medium", color: "#b9b941" },
     { label: "Low", value: "low", color: "#3db13d" },
   ];
-  const removeTodo = async (todoItem:any) => {
-  const token = Cookies.get("token");
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    data: { todo: todoItem }, // include the data within the config
+  const removeTodo = async (todoItem: any) => {
+    const token = Cookies.get("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: { todo: todoItem }, // include the data within the config
+    };
+
+    await axios.delete(
+      "https://smart-todo-be.onrender.com/todo/delete",
+      config
+    );
+
+    const temp = todos.filter((item) => item.todo !== todoItem);
+    setTodos(temp);
   };
 
-  await axios.delete("http://localhost:8000/todo/delete", config);
-
-  const temp = todos.filter((item) => item.todo !== todoItem);
-  setTodos(temp);
-};
-
   async function logout() {
-   
-    const token = Cookies.get("token")
+    const token = Cookies.get("token");
     const header = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-    await axios.get("http://localhost:8000/user/logout", header);
-    
+    await axios.get("https://smart-todo-be.onrender.com/user/logout", header);
+
     Cookies.remove("token");
     Cookies.remove("user_id");
-    router.push('/user/login')
+    router.push("/user/login");
   }
 
   return (
@@ -170,7 +175,9 @@ const Page = () => {
       <Button
         onClick={logout}
         className=" fixed top-6 right-10 bg-white text-black p-1 rounded"
-      >Log out</Button>
+      >
+        Log out
+      </Button>
       <div className="flex w-screen justify-center align-middle mt-3.5">
         <Input
           className="text-black rounded p-1 pl-2 h-fit"

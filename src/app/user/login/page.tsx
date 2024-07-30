@@ -1,6 +1,5 @@
-
 // pages/login.js
-'use client'
+"use client";
 import { useState } from "react";
 import Head from "next/head";
 import axios from "axios";
@@ -8,24 +7,27 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const router = useRouter();
 
-  const handleLogin = async (e:any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/user/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://smart-todo-be.onrender.com/user/login",
+        {
+          email,
+          password,
+        }
+      );
 
       const { access_token: token } = response.data.data.session;
       const { id: user_id } = response.data.data.user;
       console.log("user Id:", user_id);
-        console.log("Response token:", token);
+      console.log("Response token:", token);
 
       // Store token in cookies
       Cookies.set("token", token, { expires: 1 }); // Expires in 1 day
@@ -45,7 +47,7 @@ export default function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+      <div className="bg-white p-8 text-black rounded shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-6 text-black text-center">
           Login
         </h1>

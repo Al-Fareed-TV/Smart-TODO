@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./ui/button";
 
-const todos = (props: any) => {
+const Todos = (props: any) => {
   const { todos, setTodos, isDone, deleteTodo } = props;
   return (
     <div className="flex text-white rounded w-screen justify-center h-screen overflow-scroll mt-3">
@@ -52,4 +52,4 @@ const todos = (props: any) => {
   );
 };
 
-export default todos;
+export default Todos;
