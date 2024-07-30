@@ -27,7 +27,6 @@ const Chatbot = (props: any) => {
       },
     });
 
-  console.log(chats);
 
   function enableChatBot() {
     setIsChatOpen(!isChatOpen);
