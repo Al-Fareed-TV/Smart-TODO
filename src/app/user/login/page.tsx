@@ -1,16 +1,21 @@
 // pages/login.js
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    document.title = "Login - Smart Todo";
+  });
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -84,6 +89,12 @@ export default function Login() {
           >
             Login
           </button>
+          <div className="mt-2">
+            Don't have an account?{" "}
+            <Link className="text-blue-600" href="/user/signup">
+              Create
+            </Link>
+          </div>
         </form>
         {message && <p className="mt-4 text-center text-red-500">{message}</p>}
       </div>

@@ -1,15 +1,21 @@
 // pages/signup.js
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 export default function Signup() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    document.title = "SignUp - Smart Todo";
+  });
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
@@ -90,6 +96,12 @@ export default function Signup() {
           >
             Signup
           </button>
+          <div className="mt-2 text-black">
+            Already have an account? {" "}
+            <Link className="text-blue-600" href="/user/login">
+              Login
+            </Link>
+          </div>
         </form>
         {message && <p className="mt-4 text-center text-red-500">{message}</p>}
       </div>
