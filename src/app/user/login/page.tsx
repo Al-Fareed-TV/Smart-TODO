@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const router = useRouter();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ export default function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+      <div className="bg-white p-8 text-black rounded shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-6 text-black text-center">
           Login
         </h1>

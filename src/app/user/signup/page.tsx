@@ -5,15 +5,14 @@ import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 export default function Signup() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSignup = async (e: any) => {
-    const router = useRouter();
     e.preventDefault();
-
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
       return;
