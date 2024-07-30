@@ -20,13 +20,16 @@ export default function Signup() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/user/signup", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://smart-todo-be.onrender.com/user/signup",
+        {
+          email,
+          password,
+        }
+      );
       if (response) {
-          router.push("/");
-          setMessage("");
+        router.push("/");
+        setMessage("");
       }
     } catch (error) {
       setMessage("Signup failed. Please try again.");
